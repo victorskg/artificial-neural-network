@@ -2,11 +2,31 @@
   <h1>
     {{ title }}
   </h1>
-  <div>
+  <div style="padding-bottom: 20px">
     <h2>Entre com o arquivo</h2>
-    <input type="file" accept=".data" (change)="interceptFile($event.target.files[0])" />
+    <input
+      type="file"
+      accept=".data"
+      (change)="interceptFile($event.target.files[0])"
+      [disabled]="!selectedType"
+    />
   </div>
-  <button (click)="run()">
-    <span>RUUN</span>
-  </button>
+  <div>
+    <mat-form-field>
+      <mat-label>Classificar...</mat-label>
+      <mat-select [(value)]="selectedType">
+        <mat-option *ngFor="let c of classifications" [value]="c.value">{{
+          c.label
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button
+      disabled="{{ disableExectueButton() }}"
+      mat-flat-button
+      color="primary"
+      (click)="run()"
+    >
+      EXECUTAR
+    </button>
+  </div>
 </div>
